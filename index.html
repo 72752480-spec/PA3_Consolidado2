@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Urban Style - Tienda de zapatos y ropa de moda">
+    <meta name="author" content="Equipo de Desarrollo">
+    <title>Martin Style - Tienda de Ropa y Zapatos</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <!-- Loader de carga -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+        <p>Cargando tienda...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon">👟</span>
+                <h1>Martin Style</h1>
+            </div>
+            
+            <!-- Buscador -->
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Buscar productos..." 
+                    autocomplete="off">
+                <button id="searchBtn" class="btn-search">🔍</button>
+            </div>
+            
+            <!-- Carrito -->
+            <div class="cart-icon" id="cartIcon">
+                <span class="cart-emoji">🛒</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación con categorías -->
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li><a href="#" class="nav-link active" data-category="todos">Todos</a></li>
+            <li><a href="#" class="nav-link" data-category="zapatos">Zapatos</a></li>
+            <li><a href="#" class="nav-link" data-category="ropa">Ropa</a></li>
+            <li><a href="#" class="nav-link" data-category="accesorios">Accesorios</a></li>
+            <li><a href="#" class="nav-link" data-category="ofertas">🔥 Ofertas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner promocional -->
+    <section class="promo-banner" id="promoBanner">
+        <div class="promo-content">
+            <h2>¡OFERTAS DE TEMPORADA!</h2>
+            <p>Hasta <span class="discount">50% OFF</span> en productos seleccionados</p>
+            <div class="countdown" id="countdown">
+                <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
+                <div class="time-box"><span id="minutes">00</span><small>Min</small></div>
+                <div class="time-box"><span id="seconds">00</span><small>Seg</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Filtros -->
+            <aside class="filters-sidebar" id="filtersSidebar">
+                <h3>Filtros</h3>
+                
+                <div class="filter-group">
+                    <h4>Precio</h4>
+                    <input type="range" id="priceRange" min="0" max="500" value="500">
+                    <div class="price-display">
+                        <span>S/ 0</span>
+                        <span id="maxPrice">S/ 500</span>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Tallas</h4>
+                    <div class="size-buttons" id="sizeButtons">
+                        <button class="size-btn" data-size="S">S</button>
+                        <button class="size-btn" data-size="M">M</button>
+                        <button class="size-btn" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                        <button class="size-btn" data-size="36">36</button>
+                        <button class="size-btn" data-size="38">38</button>
+                        <button class="size-btn" data-size="40">40</button>
+                        <button class="size-btn" data-size="42">42</button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Color</h4>
+                    <div class="color-buttons" id="colorButtons">
+                        <button class="color-btn" data-color="negro" style="background:#000"></button>
+                        <button class="color-btn" data-color="blanco" style="background:#fff"></button>
+                        <button class="color-btn" data-color="rojo" style="background:#e74c3c"></button>
+                        <button class="color-btn" data-color="azul" style="background:#3498db"></button>
+                        <button class="color-btn" data-color="verde" style="background:#2ecc71"></button>
+                    </div>
+                </div>
+                
+                <button class="btn-clear-filters" id="clearFilters">Limpiar Filtros</button>
+            </aside>
+
+            <!-- Grid de productos -->
+            <section class="products-section">
+                <div class="products-header">
+                    <h2>Nuestros Productos</h2>
+                    <div class="sort-options">
+                        <label for="sortSelect">Ordenar por:</label>
+                        <select id="sortSelect">
+                            <option value="default">Destacados</option>
+                            <option value="price-low">Menor precio</option>
+                            <option value="price-high">Mayor precio</option>
+                            <option value="name">Nombre A-Z</option>
+                            <option value="rating">Mejor valorados</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Los productos se cargan con JavaScript -->
+                </div>
+                
+                <div class="no-results" id="noResults" style="display: none;">
+                    <p>😕 No se encontraron productos con esos filtros</p>
+                    <button class="btn-primary" id="resetSearch">Ver todos los productos</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal del Carrito -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content cart-modal">
+            <div class="modal-header">
+                <h2>🛒 Tu Carrito</h2>
+                <button class="close-modal" id="closeCart">&times;</button>
+            </div>
+            
+            <div class="cart-items" id="cartItems">
+                <!-- Items del carrito se cargan con JS -->
+            </div>
+            
+            <div class="cart-empty" id="cartEmpty">
+                <p>😢 Tu carrito está vacío</p>
+                <button class="btn-primary" id="continueShopping">Seguir comprando</button>
+            </div>
+            
+            <div class="cart-summary" id="cartSummary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">S/ 0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Descuento:</span>
+                    <span id="discount" class="discount-text">- S/ 0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío:</span>
+                    <span id="shipping">S/ 15.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">S/ 0.00</span>
+                </div>
+                
+                <div class="coupon-section">
+                    <input type="text" id="couponInput" placeholder="Código de descuento">
+                    <button class="btn-coupon" id="applyCoupon">Aplicar</button>
+                </div>
+                
+                <button class="btn-checkout" id="checkoutBtn">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Producto -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content product-modal">
+            <button class="close-modal" id="closeProduct">&times;</button>
+            <div class="product-detail" id="productDetail">
+                <!-- Detalle del producto se carga con JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación Toast -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toastMessage">Producto agregado al carrito</span>
+    </div>
+
+    <!-- Botón scroll to top -->
+    <button class="scroll-top" id="scrollTop" title="Volver arriba">↑</button>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Martin Style</h4>
+                    <p>Tu tienda de moda favorita. Encuentra los mejores zapatos y ropa con estilo urbano.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#">Sobre nosotros</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Términos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>📧 info@martinstyle.com</p>
+                    <p>📱 +51 999 999 999</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <form id="newsletterForm" class="newsletter-form">
+                        <input type="email" id="newsletterEmail" placeholder="Tu email" required>
+                        <button type="submit" class="btn-subscribe">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Martin Style - Consolidado 2 JavaScript - Matamoros Pineda Martin Abelardo</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
